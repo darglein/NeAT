@@ -131,6 +131,18 @@ HyperTreeBaseImpl::HyperTreeBaseImpl(int d, int max_depth)
     std::cout << "> Max Nodes2: " << num_nodes << std::endl;
 }
 
+void HyperTreeBaseImpl::CloneInto(HyperTreeBaseImpl* other)
+{
+    other->to(this->device());
+    auto my_buffers    = this->buffers();
+    auto other_buffers = other->buffers();
+    for (int i = 0; i < my_buffers.size(); ++i)
+    {
+        other_buffers[i].resize_(my_buffers[i].sizes());
+        other_buffers[i].copy_(my_buffers[i].clone());
+    }
+}
+
 void HyperTreeBaseImpl::reset()
 {
     register_buffer("node_parent", node_parent);

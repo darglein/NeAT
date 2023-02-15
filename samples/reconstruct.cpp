@@ -224,11 +224,12 @@ class Trainer
 
                     auto scene           = ts.scene;
                     auto neural_geometry = ts.neural_geometry;
-                    auto tree            = ts.tree;
 
-                    torch::save(tree, "/tmp/tree.pth");
+
+                    // torch::save(tree, "/tmp/tree.pth");
                     HyperTreeBase old_tree = HyperTreeBase(3, params->octree_params.tree_depth);
-                    torch::load(old_tree, "/tmp/tree.pth");
+                    ts.tree->CloneInto(old_tree.get());
+                    // torch::load(old_tree, "/tmp/tree.pth");
 
 
                     if (params->octree_params.node_culling)

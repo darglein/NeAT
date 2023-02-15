@@ -101,6 +101,9 @@ class HyperTreeBaseImpl : public virtual torch::nn::Module, public torch::nn::Cl
     HyperTreeBaseImpl(int d, int max_depth);
     virtual ~HyperTreeBaseImpl() {}
 
+    void CloneInto(HyperTreeBaseImpl* other);
+
+
     NodeBatchedSamples GroupSamplesPerNodeGPU(const SampleList& samples, int group_size);
 
     // For each inactive node we compute the output features as if they had been sampled normally.
